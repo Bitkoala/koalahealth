@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <a href="https://jiankang.mom/"><strong>线上体验 &raquo;</strong></a>
+  <a href="[https://jiankang.mom/](https://www.joru.email/)"><strong>线上体验 &raquo;</strong></a>
 </p>
 
 ---
