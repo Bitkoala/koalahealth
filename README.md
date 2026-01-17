@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <a href="https://pickoala.com/"><strong>线上体验 &raquo;</strong></a>
+  <a href="https://jk.bitekaola.com/"><strong>线上体验 &raquo;</strong></a>
 </p>
 
 ---
