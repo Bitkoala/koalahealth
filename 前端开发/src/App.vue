@@ -111,7 +111,7 @@ router.afterEach(() => {
               :alt="userStore.user?.username || ''"
               class="h-full w-full rounded-full border border-primary/20 bg-gray-100"
             />
-            <i v-else data-lucide="user"></i>
+            <i v-if="!avatarUrl" data-lucide="user"></i>
           </div>
           <span class="nav-label">{{ $t('profile') }}</span>
         </RouterLink>

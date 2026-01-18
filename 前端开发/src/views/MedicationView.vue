@@ -462,7 +462,7 @@ onMounted(() => {
             </button>
           </li>
         </ul>
-        <div v-else class="text-on-surface-variant/40 text-center py-12 flex flex-col items-center">
+        <div v-if="selectedMedLogs.length === 0" class="text-on-surface-variant/40 text-center py-12 flex flex-col items-center">
           <i data-lucide="inbox" class="w-12 h-12 mb-2 opacity-20"></i>
           <p class="text-sm">暂无服药记录</p>
         </div>

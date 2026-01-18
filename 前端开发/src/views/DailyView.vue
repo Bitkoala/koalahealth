@@ -82,7 +82,7 @@
                     跳过
                   </button>
                 </template>
-                <template v-else>
+                <template v-if="getLogStatus(item.item_name) !== 'pending'">
                   <span
                     :class="
                       getLogStatus(item.item_name) === 'completed'
@@ -131,7 +131,7 @@
                   >已完成</span
                 >
                 <button
-                  v-else
+                  v-if="item.status !== 'completed'"
                   @click="completeOneTimeTask(item)"
                   class="text-xs bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-3 rounded-full transition-all"
                 >

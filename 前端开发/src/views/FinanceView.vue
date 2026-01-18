@@ -714,7 +714,7 @@ onMounted(loadAllFinanceData)
             <div v-if="searchedTransactions" class="mt-4">
               <h3 class="text-lg font-semibold mb-2">查询结果</h3>
               <p v-if="searchedTransactions.length === 0" class="text-gray-500">在选定日期范围内没有找到交易记录。</p>
-              <ul v-else class="space-y-3 max-h-96 overflow-y-auto">
+              <ul v-if="searchedTransactions && searchedTransactions.length > 0" class="space-y-3 max-h-96 overflow-y-auto">
                 <li v-for="t in searchedTransactions" :key="`search-${t.id}`" class="flex justify-between items-center p-3 bg-white rounded-md shadow-sm">
                   <div>
                     <p class="font-semibold">{{ t.category || (t.transaction_type === 'income' ? '收入' : '支出') }}</p>
@@ -1027,7 +1027,7 @@ onMounted(loadAllFinanceData)
             </div>
           </div>
         </div>
-        <div v-else class="text-on-surface-variant/40 text-center py-12 flex flex-col items-center">
+        <div v-if="repaymentHistory.length === 0" class="text-on-surface-variant/40 text-center py-12 flex flex-col items-center">
           <i data-lucide="inbox" class="w-12 h-12 mb-2 opacity-20"></i>
           <p class="text-sm">暂无还款历史记录</p>
         </div>
