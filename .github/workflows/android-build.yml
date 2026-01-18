@@ -41,6 +41,10 @@ jobs:
         working-directory: ./前端开发
         run: npx cap sync android
 
+      - name: Grant Execute Permission for Gradlew
+        working-directory: ./前端开发/android
+        run: chmod +x gradlew
+
       - name: Build Android App (Release)
         working-directory: ./前端开发/android
         run: ./gradlew assembleRelease
@@ -48,26 +52,24 @@ jobs:
       - name: Sign Android Release
         uses: r0adkll/sign-android-release@v1
         id: sign_app
+        if: github.event_name != 'pull_request' && secrets.ANDROID_SIGNING_KEY != ''
         with:
           releaseDirectory: 前端开发/android/app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
           alias: ${{ secrets.ANDROID_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        if: env.ANDROID_SIGNING_KEY != null
-        env:
-          ANDROID_SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
 
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
+        if: steps.sign_app.outputs.signedReleaseFile != ''
         with:
           name: healthhub-release-apk
           path: ${{ steps.sign_app.outputs.signedReleaseFile }}
-        if: steps.sign_app.outputs.signedReleaseFile != null
 
       - name: Upload Unsigned APK (Fallback)
         uses: actions/upload-artifact@v4
+        if: steps.sign_app.outputs.signedReleaseFile == ''
         with:
           name: healthhub-unsigned-release-apk
           path: 前端开发/android/app/build/outputs/apk/release/app-release-unsigned.apk
-        if: steps.sign_app.outputs.signedReleaseFile == null
