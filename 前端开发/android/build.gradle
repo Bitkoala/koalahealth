@@ -8,13 +8,15 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.1'
         classpath 'com.google.gms:google-services:4.4.2'
-        
-        // Use version from variables if possible, but hardcoding for buildscript safety
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
+    }
+    
+    // Force buildscript to use our standard Kotlin version
+    configurations.classpath {
+        resolutionStrategy.force "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
     }
 }
 
-// Load global variables
 apply from: "variables.gradle"
 
 allprojects {
@@ -23,21 +25,25 @@ allprojects {
         mavenCentral()
     }
 
-    // THE DEFINITIVE FIX:
-    // This block runs for EVERY configuration in EVERY subproject.
+    // THE CLEAN GLOBAL POLICY
     configurations.all {
-        resolutionStrategy.eachDependency { details ->
-            if (details.requested.group == 'org.jetbrains.kotlin') {
-                details.useVersion rootProject.ext.kotlinVersion
+        resolutionStrategy {
+            // 1. Force version alignment for ALL Kotlin and Coroutines artifacts
+            eachDependency { details ->
+                if (details.requested.group == 'org.jetbrains.kotlin') {
+                    details.useVersion rootProject.ext.kotlinVersion
+                }
+                if (details.requested.group == 'org.jetbrains.kotlinx' && details.requested.name.startsWith('kotlinx-coroutines')) {
+                    details.useVersion rootProject.ext.coroutinesVersion
+                }
             }
-            if (details.requested.group == 'org.jetbrains.kotlinx' && details.requested.name.startsWith('kotlinx-coroutines')) {
-                details.useVersion rootProject.ext.coroutinesVersion
+
+            // 2. Definitive replacement for legacy jdk7/8 variants
+            dependencySubstitution {
+                substitute module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") using module("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.ext.kotlinVersion}")
+                substitute module("org.jetbrains.kotlin:kotlin-stdlib-jdk8") using module("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.ext.kotlinVersion}")
             }
         }
-        
-        // Physically exclude the legacy artifacts that cause "Duplicate Class"
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
     }
 }
 

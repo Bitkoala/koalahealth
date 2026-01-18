@@ -3,7 +3,7 @@ ext {
     compileSdkVersion = 34
     targetSdkVersion = 34
     
-    // Centralized Versions
+    // Centralized Versions (The single source of truth)
     kotlinVersion = '1.9.22'
     coroutinesVersion = '1.8.1'
     
