@@ -14,6 +14,10 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+
+// CRITICAL: Load global variables BEFORE allprojects/subprojects blocks
+apply from: "variables.gradle"
+
 allprojects {
     repositories {
         google()
@@ -22,7 +26,8 @@ allprojects {
 }
 
 subprojects {
-    project.configurations.all {
+    // 1. Force Kotlin Version Alignment across ALL modules (including Capacitor and Plugins)
+    configurations.all {
         resolutionStrategy.eachDependency { details ->
             if (details.requested.group == 'org.jetbrains.kotlin' && details.requested.name.startsWith('kotlin-stdlib')) {
                 details.useVersion '1.9.22'
@@ -33,7 +38,8 @@ subprojects {
         }
     }
 
-    project.dependencies {
+    // 2. Prevent "Duplicate Class" errors by redirecting legacy artifacts to the unified stdlib
+    dependencies {
         modules {
             module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") {
                 replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk7 is now part of kotlin-stdlib")
