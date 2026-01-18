@@ -167,7 +167,7 @@
             <button @click="cancelEdit" class="px-4 py-2 bg-gray-300 rounded-lg">取消</button>
           </div>
         </div>
-        <div v-else>
+        <div v-if="!editingRecord || isPregnancyMode">
           <div class="border-t pt-4 mt-6">
             <h4 class="text-md font-semibold mb-3">私密记录</h4>
             <div v-if="sexLogOnSelectedDate" class="space-y-4">
