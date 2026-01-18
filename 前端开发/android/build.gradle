@@ -14,8 +14,12 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
-apply from: "variables.gradle"
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
 
 subprojects {
     project.configurations.all {
