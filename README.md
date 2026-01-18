@@ -7,7 +7,7 @@
 # Koala Health (考拉健康)
 
 <p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/Bitkoala/healthhub/android-build.yml?style=for-the-badge&logo=github-actions&label=Android Build" alt="Android Build Status">
+  <img src="https://img.shields.io/github/actions/workflow/status/Bitkoala/healthhub/android-build.yml?style=for-the-badge&logo=github-actions&label=Android%20Build" alt="Android Build Status">
   <img src="https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=for-the-badge&logo=vue.js" alt="Vue.js">
   <img src="https://img.shields.io/badge/Node.js-20.x-5FA04E?style=for-the-badge&logo=node.js" alt="Node.js">
   <img src="https://img.shields.io/badge/Express.js-4.x-000000?style=for-the-badge&logo=express" alt="Express.js">
