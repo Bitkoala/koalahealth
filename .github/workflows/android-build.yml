@@ -43,11 +43,13 @@ jobs:
 
       - name: Grant Execute Permission for Gradlew
         working-directory: ./前端开发/android
-        run: chmod +x gradlew
+        run: |
+          sed -i 's/\r$//' gradlew
+          chmod +x gradlew
 
       - name: Build Android App (Release)
         working-directory: ./前端开发/android
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease --stacktrace
 
       - name: Check for Signing Secret
         id: check_secret
