@@ -51,8 +51,10 @@ jobs:
 
       - name: Check for Signing Secret
         id: check_secret
+        env:
+          SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
         run: |
-          if [ -n "${{ secrets.ANDROID_SIGNING_KEY }}" ]; then
+          if [ -n "$SIGNING_KEY" ]; then
             echo "HAS_SECRET=true" >> $GITHUB_ENV
           else
             echo "HAS_SECRET=false" >> $GITHUB_ENV
