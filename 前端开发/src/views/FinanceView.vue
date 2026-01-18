@@ -770,9 +770,9 @@ onMounted(loadAllFinanceData)
                   <p>已还: {{ formatCurrency(l.total_repaid) }}</p>
                   <p>剩余: {{ formatCurrency(l.remaining_amount) }}</p>
                 </div>
-                 <p v-else-if="l.repayment_date" class="text-xs text-gray-400">
-                   {{ `已于 ${new Date(l.repayment_date).toLocaleDateString()} 还清` }}
-                 </p>
+                <p v-else-if="l.repayment_date" class="text-xs text-gray-400">
+                  {{ `已于 ${new Date(l.repayment_date).toLocaleDateString()} 还清` }}
+                </p>
               </div>
             </div>
             <div class="flex justify-end items-center gap-2 mt-2">

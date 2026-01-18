@@ -52,7 +52,9 @@ jobs:
       - name: Sign Android Release
         uses: r0adkll/sign-android-release@v1
         id: sign_app
-        if: github.event_name != 'pull_request' && secrets.ANDROID_SIGNING_KEY != ''
+        env:
+          SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
+        if: github.event_name != 'pull_request' && env.SIGNING_KEY != ''
         with:
           releaseDirectory: 前端开发/android/app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
