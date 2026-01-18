@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
     repositories {
         google()
         mavenCentral()
@@ -9,13 +8,16 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.1'
         classpath 'com.google.gms:google-services:4.4.2'
+        
+        // Match the Kotlin version used in the project
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
-// CRITICAL: Load global variables BEFORE allprojects/subprojects blocks
+// Load global variables
 apply from: "variables.gradle"
 
 allprojects {
@@ -23,34 +25,29 @@ allprojects {
         google()
         mavenCentral()
     }
+
+    // Force all Kotlin-related dependencies to 1.9.22 across all projects
+    configurations.all {
+        resolutionStrategy {
+            eachDependency { details ->
+                if (details.requested.group == 'org.jetbrains.kotlin') {
+                    if (details.requested.name.startsWith('kotlin-stdlib') || 
+                        details.requested.name == 'kotlin-reflect' || 
+                        details.requested.name == 'kotlin-test') {
+                        details.useVersion '1.9.22'
+                    }
+                }
+            }
+        }
+    }
 }
 
 subprojects {
-    // 1. Force Kotlin Version Alignment across ALL modules (including Capacitor and Plugins)
-    configurations.all {
-        resolutionStrategy.eachDependency { details ->
-            if (details.requested.group == 'org.jetbrains.kotlin' && details.requested.name.startsWith('kotlin-stdlib')) {
-                details.useVersion '1.9.22'
-            }
-            if (details.requested.group == 'org.jetbrains.kotlin' && details.requested.name == 'kotlin-reflect') {
-                details.useVersion '1.9.22'
-            }
-        }
-    }
-
-    // 2. Prevent "Duplicate Class" errors by redirecting legacy artifacts to the unified stdlib
+    // Apply Kotlin BOM as an enforced platform to ensure transitive dependencies align
     dependencies {
-        modules {
-            module("org.jetbrains.kotlin:kotlin-stdlib-jdk7") {
-                replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk7 is now part of kotlin-stdlib")
-            }
-            module("org.jetbrains.kotlin:kotlin-stdlib-jdk8") {
-                replacedBy("org.jetbrains.kotlin:kotlin-stdlib", "kotlin-stdlib-jdk8 is now part of kotlin-stdlib")
-            }
-        }
+        implementation enforcedPlatform("org.jetbrains.kotlin:kotlin-bom:1.9.22")
     }
 }
-
 
 task clean(type: Delete) {
     delete rootProject.buildDir
