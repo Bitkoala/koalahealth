@@ -65,7 +65,7 @@
         <p class="text-gray-500">预产期大约在: {{ estimatedDueDate }}</p>
         <p class="text-sm text-gray-400 mt-4">(基于末次月经第一天: {{ lastMenstrualPeriod.start_date }})</p>
       </div>
-      <div v-else>
+      <div v-if="!lastMenstrualPeriod">
         <h2 class="text-xl font-semibold text-gray-700">信息不足</h2>
         <p class="mt-4 text-gray-600">无法计算孕周，因为没有找到您的末次月经记录。</p>
         <p class="mt-2 text-gray-500">请先切换回正常模式，并至少记录一次完整的经期。</p>
@@ -187,7 +187,7 @@
                 <button @click="deleteSexLog" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">删除记录</button>
               </div>
             </div>
-            <div v-else>
+            <div v-if="!sexLogOnSelectedDate">
                <button @click="createSexLog" class="px-4 py-2 bg-rose-500 text-white rounded-lg hover:bg-rose-600">记录爱爱 ❤️</button>
             </div>
           </div>
@@ -215,7 +215,7 @@
         <div v-if="chartData.labels && chartData.labels.length > 0" class="relative h-96">
           <Bar :data="chartData" :options="chartOptions" />
         </div>
-        <div v-else class="text-center text-gray-500 p-8 border rounded-lg h-96 flex items-center justify-center">
+        <div v-if="!chartData.labels || chartData.labels.length === 0" class="text-center text-gray-500 p-8 border rounded-lg h-96 flex items-center justify-center">
           <p>在选定时间范围内没有足够的数据来生成图表。请至少记录一个完整的周期，或扩大筛选范围。</p>
         </div>
       </div>

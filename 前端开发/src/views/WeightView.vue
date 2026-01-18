@@ -51,7 +51,7 @@
                 <button @click="saveHeight" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 whitespace-nowrap">保存</button>
                 <button v-if="isEditingHeight" @click="isEditingHeight = false" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 whitespace-nowrap">取消</button>
             </div>
-            <div v-else class="flex items-center gap-2 h-[42px]">
+            <div v-if="height && !isEditingHeight" class="flex items-center gap-2 h-[42px]">
                 <p class="text-lg">{{ height }} cm</p>
                 <button @click="isEditingHeight = true" class="text-sm text-blue-600 hover:underline">修改</button>
             </div>

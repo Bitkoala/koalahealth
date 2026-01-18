@@ -355,7 +355,7 @@ onMounted(loadMemos)
           <p>正在搜索...</p>
         </div>
         <div
-          v-else-if="historySearchResults.length === 0"
+          v-if="!isSearching && historySearchResults.length === 0"
           class="text-center py-8 bg-white/60 backdrop-blur-sm rounded-xl"
         >
           <p>{{ historySearchQuery ? '没有找到匹配的已完成记录' : '输入关键词以查询历史' }}</p>

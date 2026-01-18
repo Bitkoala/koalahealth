@@ -62,7 +62,7 @@
             </button>
           </div>
         </div>
-        <p v-else class="text-gray-500">今天还没有运动记录。</p>
+        <p v-if="exerciseLogs.length === 0" class="text-gray-500">今天还没有运动记录。</p>
       </div>
 
       <!-- 添加新记录表单 -->
@@ -160,7 +160,7 @@
       <div v-if="searchResult.length" class="relative h-96">
         <Bar :data="chartData" :options="chartOptions" />
       </div>
-      <p v-else class="text-gray-500">没有找到符合条件的运动记录，请调整搜索条件后重试。</p>
+      <p v-if="!searchResult.length" class="text-gray-500">没有找到符合条件的运动记录，请调整搜索条件后重试。</p>
     </div>
 
   </div>

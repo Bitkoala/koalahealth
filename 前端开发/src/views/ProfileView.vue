@@ -7,7 +7,7 @@
           <div class="absolute -inset-6 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-2xl rounded-full opacity-50"></div>
           <div class="relative w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 rounded-full overflow-hidden border-2 border-white/20 shadow-2xl bg-gray-100">
              <img v-if="avatarUrl" :src="avatarUrl" alt="User" class="w-full h-full object-cover" />
-             <div v-else class="w-full h-full flex items-center justify-center bg-gray-200">
+             <div v-if="!avatarUrl" class="w-full h-full flex items-center justify-center bg-gray-200">
                <i data-lucide="user" class="w-10 h-10 md:w-12 md:h-12 text-gray-400"></i>
              </div>
           </div>
