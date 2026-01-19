@@ -34,6 +34,21 @@
             "icons/icon.icns",
             "icons/icon.ico"
         ],
+        "windows": {
+            "wix": {
+                "language": [
+                    "zh-CN",
+                    "en-US"
+                ]
+            },
+            "nsis": {
+                "languages": [
+                    "Slovenian",
+                    "English",
+                    "SimpChinese"
+                ]
+            }
+        },
         "externalBin": []
     }
 }
