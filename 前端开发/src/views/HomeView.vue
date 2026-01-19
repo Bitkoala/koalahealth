@@ -107,39 +107,39 @@ const greeting = computed(() => {
       <h2 class="text-xl font-bold px-2">生活助手</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <!-- Daily -->
-        <RouterLink to="/daily" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-3">
+        <RouterLink to="/daily" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-2">
           <div class="p-3 bg-yellow-400/10 text-yellow-600 rounded-xl">
             <i data-lucide="list-todo" class="w-6 h-6"></i>
           </div>
-          <span class="text-sm font-semibold">{{ $t('home_daily') }}</span>
+          <span class="text-sm font-semibold leading-none">{{ $t('home_daily') }}</span>
         </RouterLink>
         <!-- Weight -->
-        <RouterLink to="/weight" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-3">
+        <RouterLink to="/weight" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-2">
           <div class="p-3 bg-teal-400/10 text-teal-600 rounded-xl">
             <i data-lucide="weight" class="w-6 h-6"></i>
           </div>
-          <span class="text-sm font-semibold">{{ $t('home_weight') }}</span>
+          <span class="text-sm font-semibold leading-none">{{ $t('home_weight') }}</span>
         </RouterLink>
         <!-- Finance -->
-        <RouterLink to="/finance" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-3">
+        <RouterLink to="/finance" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-2">
           <div class="p-3 bg-rose-400/10 text-rose-600 rounded-xl">
             <i data-lucide="wallet" class="w-6 h-6"></i>
           </div>
-          <span class="text-sm font-semibold">{{ $t('home_finance') }}</span>
+          <span class="text-sm font-semibold leading-none">{{ $t('home_finance') }}</span>
         </RouterLink>
         <!-- Pomodoro -->
-        <RouterLink to="/pomodoro" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-3">
+        <RouterLink to="/pomodoro" class="glass-card p-4 rounded-3xl hover:bg-white dark:hover:bg-white/10 transition-colors flex flex-col items-center text-center gap-2">
           <div class="p-3 bg-indigo-400/10 text-indigo-600 rounded-xl">
             <i data-lucide="timer" class="w-6 h-6"></i>
           </div>
-          <span class="text-sm font-semibold">{{ $t('pomodoro') }}</span>
+          <span class="text-sm font-semibold leading-none">{{ $t('pomodoro') }}</span>
         </RouterLink>
         <!-- More -->
-        <div class="glass-card p-4 rounded-3xl opacity-50 flex flex-col items-center text-center gap-3">
+        <div class="glass-card p-4 rounded-3xl opacity-50 flex flex-col items-center text-center gap-2">
           <div class="p-3 bg-gray-400/10 text-gray-400 rounded-xl">
             <i data-lucide="more-horizontal" class="w-6 h-6"></i>
           </div>
-          <span class="text-sm font-semibold">更多功能</span>
+          <span class="text-sm font-semibold leading-none">更多功能</span>
         </div>
       </div>
     </section>

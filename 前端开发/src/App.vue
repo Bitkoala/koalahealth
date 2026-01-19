@@ -230,7 +230,7 @@ router.afterEach(() => {
 
 /* Nav Item Styling */
 .nav-item {
-  @apply flex flex-col items-center justify-center p-2 px-3 rounded-2xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/80 dark:hover:bg-white/10 min-w-[4.5rem] gap-1;
+  @apply flex flex-col items-center justify-center p-2 px-3 rounded-2xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/80 dark:hover:bg-white/10 min-w-[4.5rem] gap-1.5;
 }
 
 .nav-item.router-link-active {

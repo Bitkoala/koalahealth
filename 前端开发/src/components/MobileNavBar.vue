@@ -140,7 +140,7 @@ const handleNavClick = () => {
 }
 
 .mobile-nav-item {
-  @apply flex flex-col items-center justify-center gap-1 text-gray-400 dark:text-gray-500 transition-all duration-300 w-16 bg-transparent border-none outline-none;
+  @apply flex flex-col items-center justify-center gap-1.5 text-gray-400 dark:text-gray-500 transition-all duration-300 w-16 bg-transparent border-none outline-none;
 }
 
 .mobile-nav-item span {
@@ -165,11 +165,11 @@ const handleNavClick = () => {
 
 /* More Menu Items */
 .more-menu-item {
-  @apply flex flex-col items-center justify-center p-4 space-y-2 rounded-2xl hover:bg-white/10 transition-all active:scale-95;
+  @apply flex flex-col items-center justify-center p-4 gap-2 rounded-2xl hover:bg-white/10 transition-all active:scale-95;
 }
 
 .more-menu-item span {
-  @apply text-xs font-bold text-on-surface opacity-80;
+  @apply text-xs font-bold text-on-surface opacity-80 text-center leading-none;
 }
 
 .icon-box {
