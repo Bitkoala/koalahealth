@@ -175,7 +175,7 @@
 
     /* Safe Area Support */
     .pt-safe {
-        padding-top: env(safe-area-inset_top, 0px) !important;
+        padding-top: env(safe-area-inset-top, 0px) !important;
     }
 
     .pb-safe {

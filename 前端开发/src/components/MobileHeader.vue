@@ -43,7 +43,7 @@ const pageTitle = computed(() => {
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 right-0 z-50 glass-effect h-16 flex items-center justify-between px-6 border-b border-white/10">
+  <header class="fixed top-0 left-0 right-0 z-50 glass-effect min-h-16 pt-safe flex items-center justify-between px-6 border-b border-white/10">
     <div class="flex items-center space-x-3">
       <img src="https://pickoala.com/img/images/2026/01/05/zaajujcv.webp" alt="Logo" class="h-8 w-auto dark:hidden" />
       <img src="https://pickoala.com/img/images/2026/01/05/EOiSqYhH.webp" alt="Logo" class="h-8 w-auto hidden dark:block" />

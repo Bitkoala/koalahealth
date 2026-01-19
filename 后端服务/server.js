@@ -40,9 +40,11 @@ const app = express();
 // 从环境变量中读取 CORS 白名单，并动态生成正则表达式数组
 const whitelistDomains = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST.split(',') : [];
 const whitelist = whitelistDomains.map(domain => {
-  // 对域名进行转义，以防域名中包含需要转义的特殊正则字符
-  const escapedDomain = domain.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return new RegExp(`^https?:\/\/([\\w-]+\\.)*${escapedDomain}$`);
+  const d = domain.trim();
+  const escapedDomain = d.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  // 支持 http, https, capacitor, ionic 协议
+  // 支持可选的二级域名和可选的端口号
+  return new RegExp(`^(https?|capacitor|ionic):\/\/([\\w-]+\\.)*${escapedDomain}(:\\d+)?$`);
 });
 
 if (whitelist.length > 0) {

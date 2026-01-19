@@ -27,6 +27,12 @@ const toggleMode = () => {
   authError.value = ''
 }
 
+const loginFormRef = ref<HTMLElement | null>(null)
+
+const scrollToLogin = () => {
+  loginFormRef.value?.scrollIntoView({ behavior: 'smooth' })
+}
+
 const handleLocalAuth = async () => {
   if (isLoading.value) return
   
@@ -101,7 +107,7 @@ onMounted(() => {
     </div>
 
     <!-- Branding Header -->
-    <header class="absolute top-0 left-0 right-0 z-50 py-8 px-8 md:px-12 lg:px-16">
+    <header class="absolute top-0 left-0 right-0 z-50 py-8 px-8 md:px-12 lg:px-16 pt-safe">
       <div class="flex items-center space-x-4">
         <div class="flex items-center">
           <img src="https://pickoala.com/img/images/2026/01/05/xG3tSjft.webp" alt="Company Logo" class="h-7 md:h-8 w-auto dark:hidden">
@@ -117,7 +123,7 @@ onMounted(() => {
 
     <div class="flex-grow flex flex-col lg:flex-row">
       <!-- Left Side: Branding & Features -->
-      <div class="lg:w-1/2 flex flex-col justify-center p-8 md:p-16 lg:p-32 space-y-10 animate-fade-in">
+      <div class="lg:w-1/2 min-h-screen lg:min-h-0 flex flex-col justify-center p-8 md:p-16 lg:p-32 space-y-10 animate-fade-in relative">
         <div class="space-y-4 pt-16 lg:pt-0">
           <div class="inline-flex items-center space-x-2 px-3 py-1 bg-blue-500/10 text-blue-600 rounded-full text-xs font-bold uppercase tracking-wider">
             <i data-lucide="sparkles" class="w-3 h-3"></i>
@@ -130,6 +136,17 @@ onMounted(() => {
           <p class="text-lg md:text-xl text-on-surface-variant max-w-lg leading-relaxed">
             让每一项健康数据都有迹可循。您的私人健康与生活管家，陪伴您走过每一个活力瞬间。
           </p>
+
+          <!-- Mobile "Get Started" Button -->
+          <div class="lg:hidden pt-4">
+            <button 
+              @click="scrollToLogin"
+              class="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/30 hover:shadow-blue-500/40 active:scale-95 transition-all group animate-pulse-slow"
+            >
+              <span>开启您的健康生活</span>
+              <i data-lucide="arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+            </button>
+          </div>
         </div>
 
         <!-- Feature Badges -->
@@ -150,7 +167,7 @@ onMounted(() => {
       </div>
 
       <!-- Right Side: Login Content -->
-      <div class="lg:w-1/2 flex items-center justify-center p-6 md:p-12 lg:p-24 animate-fade-in" style="animation-delay: 0.2s">
+      <div ref="loginFormRef" class="lg:w-1/2 flex items-center justify-center p-6 md:p-12 lg:p-24 animate-fade-in" style="animation-delay: 0.2s">
         <div class="glass-card w-full max-w-lg p-10 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden">
           <div class="relative z-10 space-y-8">
             <div class="text-center space-y-2">
@@ -269,6 +286,12 @@ onMounted(() => {
 <style scoped>
 .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
 .animate-slide-down { animation: slideDown 0.3s ease-out forwards; }
+.animate-pulse-slow { animation: pulseSlow 3s infinite; }
+
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulseSlow {
+  0%, 100% { transform: scale(1); box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3); }
+  50% { transform: scale(1.03); box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.4); }
+}
 </style>
