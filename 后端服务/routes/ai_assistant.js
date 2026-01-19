@@ -20,7 +20,8 @@ router.post('/chat', authenticateToken, async (req, res) => {
         return res.status(400).json({ message: '无效的对话消息格式' });
     }
 
-    const apiKey = process.env.ARK_API_KEY;
+    const apiKeys = (process.env.ARK_API_KEY || '').split(',').map(k => k.trim()).filter(k => k);
+    const apiKey = apiKeys[Math.floor(Math.random() * apiKeys.length)];
     const baseUrl = process.env.ARK_BASE_URL || 'https://ark.cn-beijing.volces.com/api/v3/chat/completions';
     const model = process.env.ARK_MODEL || 'Doubao-Seed-1.8';
 
@@ -45,6 +46,9 @@ router.post('/chat', authenticateToken, async (req, res) => {
             baseUrl,
             {
                 model: model,
+                // Doubao-Seed-1.8 specifics
+                max_completion_tokens: 65535,
+                reasoning_effort: 'medium',
                 messages: [systemPrompt, ...messages],
             },
             {
