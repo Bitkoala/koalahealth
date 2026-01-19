@@ -99,19 +99,7 @@ const sendMessage = async () => {
     
     messages.value.push({
         role: 'user',
-        content: JSON.stringify(apiContent), // Temporarily stringify to bypass type check errors? Or fix type.
-        // Better: Update the UI to check if content is string or JSON parsable array on the fly?
-        // Let's just store the text representation for now and handle "content" in API call separately?
-        // Ideally we want to show the image in the chat.
-        
-        // Let's inject a special "ui_content" property or just parse the content in template.
-        // Let's go with: content: userText or "[图片]", and separate ui_image property.
-        // But the message history sent to API needs strictly correct format.
-        
-        // Let's try this:
-        // We will store the RAW content structure (Array or String) in `content`.
-        // We update the Template to handle Array content.
-        content: apiContent as any, 
+        content: apiContent, 
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     })
 
