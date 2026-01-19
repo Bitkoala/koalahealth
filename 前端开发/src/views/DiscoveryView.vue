@@ -6,10 +6,7 @@ import { useToastStore } from '@/stores/toast'
 // --- Types ---
 interface Message {
   role: 'user' | 'assistant' | 'system';
-  role: 'user' | 'assistant' | 'system';
   content: string | any[];
-  time?: string;
-}
   time?: string;
 }
 
