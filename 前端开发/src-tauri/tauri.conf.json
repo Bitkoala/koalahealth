@@ -4,9 +4,9 @@
     "identifier": "com.koalahealth.app",
     "build": {
         "beforeDevCommand": "npm run dev",
-        "devPath": "http://localhost:5173",
+        "devUrl": "http://localhost:5173",
         "beforeBuildCommand": "npm run build",
-        "distDir": "../dist"
+        "frontendDist": "../dist"
     },
     "app": {
         "windows": [
