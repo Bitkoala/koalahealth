@@ -216,7 +216,7 @@ router.afterEach(() => {
           </transition>
         </RouterView>
       </main>
-      <AppFooter v-if="!isMobile" />
+      <AppFooter v-if="!isMobile && (router.currentRoute.value.path === '/' || router.currentRoute.value.path === '/login')" />
     </div>
     
     <ToastNotification />
