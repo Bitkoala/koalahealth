@@ -8,6 +8,12 @@ import { useLanguageStore } from './stores/language'
 import AppFooter from './components/AppFooter.vue'
 import MobileNavBar from './components/MobileNavBar.vue'
 import MobileHeader from './components/MobileHeader.vue'
+import DynamicSplashScreen from './components/DynamicSplashScreen.vue'
+
+const showSplash = ref(true)
+const onSplashFinished = () => {
+  showSplash.value = false
+}
 
 declare const lucide: { createIcons: () => void };
 
@@ -83,6 +89,7 @@ router.afterEach(() => {
 
 <template>
   <div class="app-wrapper min-h-screen relative overflow-x-hidden pt-safe">
+    <DynamicSplashScreen @finished="onSplashFinished" v-if="showSplash" />
     <!-- Dynamic Mesh Background -->
     <div class="fixed inset-0 -z-10 pointer-events-none opacity-40 dark:opacity-20 transition-opacity duration-1000">
       <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-400 blur-[120px] rounded-full animate-float"></div>

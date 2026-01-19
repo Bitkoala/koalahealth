@@ -9,7 +9,7 @@
  */
 
 // 从全局 window 对象读取运行时配置
-const API_BASE_URL = window.APP_CONFIG?.API_BASE_URL || 'https://hb-api.bitekaola.com/api';
+export const API_BASE_URL = window.APP_CONFIG?.API_BASE_URL || 'https://hb-api.bitekaola.com/api';
 console.log('[API] Using Base URL:', API_BASE_URL);
 if (!window.APP_CONFIG) {
   console.warn('[API] Warning: window.APP_CONFIG is missing. Falling back to default production URL.');

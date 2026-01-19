@@ -27,6 +27,17 @@
         >
           {{ $t('admin_system_tools') }}
         </button>
+        <button
+          @click="activeTab = 'brandingConfig'"
+          :class="[
+            'px-3 py-2 font-medium text-sm rounded-t-md',
+            activeTab === 'brandingConfig'
+              ? 'border-b-2 border-indigo-500 text-indigo-600'
+              : 'text-gray-500 hover:text-gray-700 hover:border-gray-300',
+          ]"
+        >
+          {{ $t('admin_branding') }}
+        </button>
       </nav>
     </div>
 
@@ -89,7 +100,7 @@
               type="number"
               v-model.number="cleanupDays"
               id="cleanup-days"
-              class="block w-24 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              class="block w-24 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-gray-900"
               :placeholder="$t('admin_cleanup_placeholder')"
             />
             <label for="cleanup-days" class="text-sm font-medium text-gray-700">{{ $t('admin_cleanup_suffix') }}</label>
@@ -102,6 +113,61 @@
             </button>
           </div>
        </div>
+    </div>
+
+    <!-- 品牌配置 -->
+    <div v-if="activeTab === 'brandingConfig'">
+        <div class="bg-white shadow-md rounded-lg p-6 max-w-2xl">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">{{ $t('admin_splash_config') }}</h2>
+            <div class="space-y-6">
+                <!-- 图片配置 -->
+                <div>
+                   <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('admin_splash_image_url') }}</label>
+                   <input 
+                    type="text" 
+                    v-model="splashConfig.image"
+                    class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2 bg-gray-50 text-gray-800"
+                    :placeholder="$t('admin_splash_placeholder_image')"
+                   />
+                </div>
+
+                <!-- 文字配置 -->
+                <div>
+                   <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('admin_splash_text') }}</label>
+                   <input 
+                    type="text" 
+                    v-model="splashConfig.text"
+                    class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2 bg-gray-50 text-gray-800"
+                    :placeholder="$t('admin_splash_placeholder_text')"
+                   />
+                </div>
+
+                <!-- 预估效果预览 -->
+                <div v-if="splashConfig.image || splashConfig.text" class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <p class="text-xs text-gray-400 mb-2 uppercase">{{ $t('admin_splash_preview') }}</p>
+                    <div class="flex flex-col items-center justify-center space-y-4 py-4">
+                        <img v-if="splashConfig.image" :src="splashConfig.image" class="w-32 h-auto rounded shadow-lg" />
+                        <p v-if="splashConfig.text" class="text-blue-600 font-bold text-lg text-center">{{ splashConfig.text }}</p>
+                    </div>
+                </div>
+
+                <div class="flex space-x-4 pt-4 border-t border-gray-100">
+                    <button
+                        @click="handleSaveSplashConfig"
+                        :disabled="savingConfig"
+                        class="flex-1 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50"
+                    >
+                        {{ savingConfig ? $t('profile_submitting') : $t('admin_splash_save') }}
+                    </button>
+                    <button
+                        @click="handleClearSplashConfig"
+                        class="px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                    >
+                        {{ $t('admin_splash_clear') }}
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 </template>
@@ -124,10 +190,16 @@ interface User {
   is_admin: number; // 数据库返回 0 或 1
 }
 
-const activeTab = ref<'userManagement' | 'systemTools'>('userManagement');
+const activeTab = ref<'userManagement' | 'systemTools' | 'brandingConfig'>('userManagement');
 const users = ref<User[]>([]);
 const loading = ref(true);
 const cleanupDays = ref<number | null>(90);
+const savingConfig = ref(false);
+
+const splashConfig = ref({
+  image: '',
+  text: ''
+});
 
 const fetchUsers = async () => {
   loading.value = true;
@@ -186,6 +258,37 @@ const handleCleanup = async () => {
   }
 };
 
+const fetchSplashConfig = async () => {
+    try {
+        const response = await apiRequest('/public/config/app_splash_config');
+        if (response && response.value) {
+            splashConfig.value = response.value;
+        }
+    } catch (error) {
+        console.warn('No existing splash config found or fetch failed');
+    }
+};
+
+const handleSaveSplashConfig = async () => {
+    savingConfig.value = true;
+    try {
+        await apiRequest('/admin/config', 'POST', {
+            key: 'app_splash_config',
+            value: splashConfig.value
+        });
+        toastStore.showToast({ message: t('admin_toast_save_config_success'), type: 'success' });
+    } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : String(error);
+        toastStore.showToast({ message: t('admin_toast_save_config_error', { message }), type: 'error' });
+    } finally {
+        savingConfig.value = false;
+    }
+};
+
+const handleClearSplashConfig = () => {
+    splashConfig.value = { image: '', text: '' };
+};
+
 const formatDateTime = (dateTimeString: string | null) => {
   if (!dateTimeString) return null;
   try {
@@ -209,6 +312,7 @@ const formatDateTime = (dateTimeString: string | null) => {
 
 onMounted(() => {
   fetchUsers();
+  fetchSplashConfig();
 });
 </script>
 

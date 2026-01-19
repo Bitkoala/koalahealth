@@ -20,6 +20,7 @@ const cors = require('cors');
 
 // --- 路由模块引入 ---
 const authRoutes = require('./routes/auth');
+const publicRoutes = require('./routes/public');
 const medicationRoutes = require('./routes/medications');
 const stoolRoutes = require('./routes/stool');
 const dailyRoutes = require('./routes/daily');

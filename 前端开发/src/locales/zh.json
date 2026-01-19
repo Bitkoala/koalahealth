@@ -124,5 +124,16 @@
   "footer_copyright": "九如投资发展（山东）有限公司. All Rights Reserved.",
   "footer_built_by_part1": "由 ",
   "footer_built_by_part2": " 构建",
-  "footer_more_projects": "更多项目即将上线..."
+  "footer_more_projects": "更多项目即将上线...",
+  "admin_branding": "品牌配置",
+  "admin_splash_config": "动态开屏设置",
+  "admin_splash_image_url": "活动海报图片 URL",
+  "admin_splash_text": "开屏祝福文字",
+  "admin_splash_placeholder_image": "输入图片 URL (建议 1:1 或 3:4)",
+  "admin_splash_placeholder_text": "例如：祝大家新春快乐！",
+  "admin_splash_save": "保存并立即生效",
+  "admin_splash_clear": "重置为默认品牌",
+  "admin_splash_preview": "预览效果",
+  "admin_toast_save_config_success": "配置已更新，所有用户重启 App 后生效。",
+  "admin_toast_save_config_error": "保存配置失败: {message}"
 }

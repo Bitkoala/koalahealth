@@ -91,7 +91,7 @@ router.delete('/delete-user/:userId', async (req, res) => {
         await connection.query('DELETE FROM transactions WHERE user_id = ?', [userId]);
         await connection.query('DELETE FROM accounts WHERE user_id = ?', [userId]);
         await connection.query('DELETE FROM users WHERE id = ?', [userId]);
-        
+
         await connection.commit();
         res.json({ message: `用户 ${userId} 及其所有数据已成功删除。` });
     } catch (error) {
@@ -128,7 +128,7 @@ router.post('/cleanup-inactive-users', async (req, res) => {
         }
 
         const userIds = inactiveUsers.map(u => u.id);
-        
+
         await connection.beginTransaction();
         // 使用 IN 子句批量删除
         await connection.query('DELETE FROM weight_logs WHERE user_id IN (?)', [userIds]);
@@ -159,5 +159,31 @@ router.post('/cleanup-inactive-users', async (req, res) => {
     }
 });
 
+
+/**
+ * @route   POST /api/admin/config
+ * @desc    设置或更新全局配置项。
+ * @access  Private (Admin only)
+ * @body    {string} key - 配置键名。
+ * @body    {any} value - 配置数据。
+ */
+router.post('/config', async (req, res) => {
+    const { key, value } = req.body;
+    if (!key) {
+        return res.status(400).json({ message: '必须提供配置键名' });
+    }
+
+    try {
+        const valueStr = typeof value === 'object' ? JSON.stringify(value) : String(value);
+        await pool.query(
+            'INSERT INTO global_configs (config_key, config_value) VALUES (?, ?) ON DUPLICATE KEY UPDATE config_value = ?',
+            [key, valueStr, valueStr]
+        );
+        res.json({ message: `配置 ${key} 已成功更新` });
+    } catch (error) {
+        console.error(`保存配置 ${key} 失败:`, error);
+        res.status(500).json({ message: '服务器内部错误' });
+    }
+});
 
 module.exports = router;

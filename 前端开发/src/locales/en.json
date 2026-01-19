@@ -124,5 +124,16 @@
   "footer_copyright": "Joru Investment Development (Shandong) Co., Ltd. All Rights Reserved.",
   "footer_built_by_part1": "Built by ",
   "footer_built_by_part2": "",
-  "footer_more_projects": "More projects coming soon..."
+  "footer_more_projects": "More projects coming soon...",
+  "admin_branding": "Branding",
+  "admin_splash_config": "Dynamic Splash Settings",
+  "admin_splash_image_url": "Event Image URL",
+  "admin_splash_text": "Splash Greeting Text",
+  "admin_splash_placeholder_image": "Enter image URL (1:1 or 3:4 recommended)",
+  "admin_splash_placeholder_text": "e.g., Happy New Year!",
+  "admin_splash_save": "Save & Apply Globally",
+  "admin_splash_clear": "Reset to Default",
+  "admin_splash_preview": "Preview",
+  "admin_toast_save_config_success": "Configuration updated. Global users will see it on restart.",
+  "admin_toast_save_config_error": "Failed to save config: {message}"
 }
