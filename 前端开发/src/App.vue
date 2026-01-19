@@ -115,7 +115,7 @@ router.afterEach(() => {
           <span class="nav-label">{{ $t('discovery') }}</span>
         </RouterLink>
         <RouterLink to="/profile" class="nav-item group" :title="$t('profile')">
-          <div class="relative w-6 h-6 mb-1">
+          <div class="relative w-6 h-6">
             <img
               v-if="avatarUrl"
               :src="avatarUrl"
@@ -230,7 +230,7 @@ router.afterEach(() => {
 
 /* Nav Item Styling */
 .nav-item {
-  @apply flex flex-col items-center justify-center p-2 px-3 rounded-2xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/80 dark:hover:bg-white/10 min-w-[4rem];
+  @apply flex flex-col items-center justify-center p-2 px-3 rounded-2xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/80 dark:hover:bg-white/10 min-w-[4.5rem] gap-1;
 }
 
 .nav-item.router-link-active {
@@ -238,11 +238,11 @@ router.afterEach(() => {
 }
 
 .nav-item i {
-  @apply w-6 h-6 mb-1 transition-transform duration-300 group-hover:scale-110;
+  @apply w-6 h-6 transition-transform duration-300 group-hover:scale-110;
 }
 
 .nav-label {
-  @apply text-[11px] font-bold whitespace-nowrap opacity-80 group-hover:opacity-100 transition-opacity;
+  @apply text-[11px] font-bold whitespace-nowrap opacity-80 group-hover:opacity-100 transition-opacity text-center leading-none;
 }
 
 .action-mini-btn {

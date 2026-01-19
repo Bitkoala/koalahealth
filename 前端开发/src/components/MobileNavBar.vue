@@ -140,11 +140,11 @@ const handleNavClick = () => {
 }
 
 .mobile-nav-item {
-  @apply flex flex-col items-center justify-center space-y-1 text-gray-400 dark:text-gray-500 transition-all duration-300 w-16 bg-transparent border-none outline-none;
+  @apply flex flex-col items-center justify-center gap-1 text-gray-400 dark:text-gray-500 transition-all duration-300 w-16 bg-transparent border-none outline-none;
 }
 
 .mobile-nav-item span {
-  @apply text-[10px] font-bold tracking-tight opacity-70;
+  @apply text-[10px] font-bold tracking-tight opacity-70 text-center leading-none;
 }
 
 .mobile-nav-item i {
