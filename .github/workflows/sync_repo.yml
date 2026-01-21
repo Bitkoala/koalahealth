@@ -9,14 +9,14 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Mirror the GitHub repo to Gitee
-        uses: Yikun/gitee-mirror-action@master
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          src: github/bitkoala
-          dst: gitee/bitekaola
-          static_list: "koalahealth"
-          # --- 重点：去掉 dst_key，改用 clone_style: https ---
-          dst_token: ${{ secrets.GITEE_TOKEN }}
-          clone_style: https
-          force_update: true
-          debug: true
+          fetch-depth: 0
+
+      - name: Push to Gitee
+        env:
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+        run: |
+          git remote add gitee https://bitekaola:${GITEE_TOKEN}@gitee.com/bitekaola/koalahealth.git
+          git push -f gitee main
